@@ -1,0 +1,8 @@
+
+<%= simple_form_for @sentiment do |s| %>
+	<%= s.input :stock_symbol, collection: Sentiment::COMPANIES %>
+	<%= s.input :start_date %>
+	<%= s.input :end_date %>
+
+	<%= s.submit nil %>
+<% end %>
