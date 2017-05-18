@@ -1,4 +1,5 @@
 class SentimentsController < ApplicationController
+	before_action :set_sentiment
 	def index
 		redirect_to new_sentiment_path
 	end
@@ -10,7 +11,7 @@ class SentimentsController < ApplicationController
 	def create
 		@sentiment = Sentiment.new(sentiment_params)
 		if @sentiment.save
-			@sentiment.agg_score =  %x(python analysis.py app/assets/inputs/input.json)
+			@sentiment.agg_score =  %x(python main.py app/assets/inputs/input.json)
 			@sentiment.save
 			redirect_to sentiment_path(@sentiment)
 		else
@@ -21,9 +22,13 @@ class SentimentsController < ApplicationController
 	def show
 		#parse output from file if exists
 		#open file, iterate through
-		# @value = %x(python --version 2>&1)
-		@sentiment_score = nil
-		@article_list = nil
+		
+		#parse csv file
+
+
+		#ALL FAKE STUFF
+		@main_score = 88
+		@articles = #title, url, pos, neg, timestamp
 	end
 
 	private
