@@ -1,8 +1,27 @@
 
-<%= simple_form_for @sentiment do |s| %>
-	<%= s.input :stock_symbol, collection: Sentiment::COMPANIES %>
-	<%= s.input :start_date %>
-	<%= s.input :end_date %>
 
-	<%= s.submit nil %>
+
+<%= simple_form_for(@sentiment) do |s| %>
+  <%= s.error_notification %>
+
+  <div class="form-inputs">
+    <div class="row">
+      <div class="input-field col s12">
+  	     <%# s.input :stock_symbol, collection: Sentiment::COMPANIES %>
+  	     <%= s.select(:stock_symbol, Sentiment::COMPANIES, prompt: "Select a category") %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s6">
+  	    <%= s.input :start_date, as: :string %>
+      </div>
+      <div class="input-field col s6">
+  	    <%= s.input :end_date, as: :string %>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-actions">
+    <%= s.button :submit, :class => "btn waves-effect waves-light" %>
+  </div>
 <% end %>
