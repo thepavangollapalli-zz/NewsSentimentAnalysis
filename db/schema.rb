@@ -11,15 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518171349) do
+ActiveRecord::Schema.define(version: 20170518205930) do
 
   create_table "sentiments", force: :cascade do |t|
     t.string   "stock_symbol"
-    t.date     "start_date"
-    t.date     "end_date"
+    t.string   "start_date"
+    t.string   "end_date"
     t.string   "sent_result"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.string   "json"
   end
 
 end
