@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170518205930) do
+ActiveRecord::Schema.define(version: 20170519143453) do
 
   create_table "sentiments", force: :cascade do |t|
     t.string   "stock_symbol"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170518205930) do
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
     t.string   "json"
+    t.float    "agg_score"
   end
 
 end
