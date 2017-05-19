@@ -1,5 +1,4 @@
 #!/usr/bin/python
-import nltk
 import re
 
 #define a class that implements sentiment analysis using 
