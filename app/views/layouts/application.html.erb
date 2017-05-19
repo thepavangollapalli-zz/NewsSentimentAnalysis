@@ -22,7 +22,27 @@
 	<script>
       $(document).ready(function(){
         $('select').material_select();
+        $('input.autocomplete').autocomplete({
+	    data: {
+	      "Google (GOOG)": null,
+	      "Credit Suisse (CS)": null,
+	      "Facebook (FB)": null,
+	      "Yahoo (YHOO)": null,
+	      "Tableau (DATA)": null,
+	      "Thomson Reuters Inc. (TRI)": null,
+	      "Goldman Sachs (GS)": null,
+	      "Amazon (AMZN)": null,
+	      "Cloudera (CLDR)": null
+	    },
+	    limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+	    onAutocomplete: function(val) {
+	      // Callback function when value is autocompleted.
+	    },
+	    minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+	    });
       });
+
+    
     </script>
 </body>
 </html>
