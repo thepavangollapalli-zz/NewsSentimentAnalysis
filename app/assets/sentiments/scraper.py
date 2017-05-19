@@ -54,6 +54,9 @@ def parse(filename):
             headline = article['headline']['main']
             body = get_text(link)
             
+            if len(body)==0:
+                return -1
+            
             pos_score = a.analyze_p(body)
             neg_score = a.analyze_n(body)
             
