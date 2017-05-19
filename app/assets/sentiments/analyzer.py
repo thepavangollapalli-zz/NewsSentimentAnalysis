@@ -5,7 +5,7 @@ import re
 
 class Analyzer(): 
     #initialize the Analyzer 
-    def __init__(self, positives = "positive-words.txt", negatives = "negative-words.txt"):
+    def __init__(self, positives = "app/assets/sentiments/positive-words.txt", negatives = "app/assets/sentiments/negative-words.txt"):
         self.p = positives
         self.n = negatives
 
