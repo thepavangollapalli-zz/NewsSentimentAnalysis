@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import re
+import re, random
 
 #define a class that implements sentiment analysis using 
 
@@ -26,7 +26,7 @@ class Analyzer():
                 sum_p += 1
 
         #return percentage of positive words in inputted text
-        return (sum_p * 1.0 / len(text)) * 100
+        return random.uniform(0, 50) #(sum_p * 1.0 / len(text)) * 100
 
     #analyze text for negative sentiment returning ts score 
     def analyze_n(self, text):
@@ -45,7 +45,7 @@ class Analyzer():
                 sum_n += 1
 
         #return percentage of positive words in inputted text
-        return (sum_n * 1.0 / len(text)) * 100
+        return random.uniform(0, 50)#(sum_n * 1.0 / len(text)) * 100
 
     #accepts two lists of the same length with positive and negative scores 
     def aggregate(self, pos, neg): 

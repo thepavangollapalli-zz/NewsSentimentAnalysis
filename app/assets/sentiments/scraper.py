@@ -34,9 +34,9 @@ def parse(filename):
     # scrapes text and saves it to file
     # returns aggregate score across all articles
     a = Analyzer()
-    print(filename)
+    # print(filename)
     content = json.load(codecs.open(filename, 'r', 'utf-8-sig'))
-    print(content)
+    # print(content)
     if len(content)==0:
         return -1
     articles = content['response']['docs']
@@ -53,8 +53,8 @@ def parse(filename):
                                 quoting=csv.QUOTE_MINIMAL)
         # write csv headers
         spamwriter.writerow(['headline', 'timestamp', 'url', 'pos', 'neg', 'agg', 'stock_price'])
-
-        for i in range(max(10, len(articles))):
+        print(min(10, len(articles)))
+        for i in range(min(10, len(articles))):
         # for article in articles:
             # pull data for each article
             article = articles[i]
@@ -63,7 +63,7 @@ def parse(filename):
             headline = article['headline']['main']
             body = get_text(link)
             
-            print(body)
+            # print(body)
             if len(body)==0:
                 return -1
             
@@ -80,7 +80,6 @@ def parse(filename):
 
             # writing rows into csv file
             row = [headline, datetime, str(link), pos_score, neg_score, agg, stock_price]
-            spamwriter.writerow(["hello"])
             spamwriter.writerow(row)
 
 
