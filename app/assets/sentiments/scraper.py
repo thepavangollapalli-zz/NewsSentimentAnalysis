@@ -34,7 +34,9 @@ def parse(filename):
     # scrapes text and saves it to file
     # returns aggregate score across all articles
     a = Analyzer()
+    print(filename)
     content = json.load(codecs.open(filename, 'r', 'utf-8-sig'))
+    print(content)
     if len(content)==0:
         return -1
     articles = content['response']['docs']
