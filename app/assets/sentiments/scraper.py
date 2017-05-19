@@ -7,6 +7,8 @@ import clean_up
 from lxml import html
 from lxml import etree
 import requests
+import csv
+from analyzer import Analyzer
 
 def get_text(link):
     # inspired by hitchhiker's
@@ -18,21 +20,44 @@ def get_text(link):
     content = clean_up.clean_html(str(data)) 
     return content
 
+# def get_stock_price(link):
+
 def parse(filename):
     # iterates through file, and loads in each url
     # scrapes text and saves it to file
     # returns dictionary with key=headline, value=body of article
+    a = Analyzer()
     content = json.load(codecs.open(filename, 'r', 'utf-8-sig'))
     articles = content['response']['docs']
+    
+    if len(articles)==0:
+        return -1
+
     text_articles = dict()
-    for article in articles:
-        link = article['web_url']
-        body = get_text(link)   
-        headline = article['headline']['main']
-        FILE = headline + ".txt"
-        f = open(FILE, "w")
-        f.write(body)
-        f.close()
-        text_articles[headline] = body
+
+    with open('sentiments.csv', 'w', newline='') as csvfile:
+        spamwriter = csv.writer(csvfile, delimiter=',',
+                                quoting=csv.QUOTE_MINIMAL)
+        spamwriter.writerow(['headline', 'timestamp', 'url', 'pos', 'neg', 'agg', 'stock_price'])
+
+        for article in articles:
+            datetime = str(article['pub_date'])
+            link = article['web_url']
+            headline = article['headline']['main']
+            body = get_text(link)
+            
+            pos_score = a.analyze_p(body)
+            neg_score = a.analyze_n(body)
+
+            # dummy instantiation 
+            agg = pos_score-neg_score
+            stock_price = 10
+
+            # headline,timestamp,url,pos,neg,agg,stock_price
+            row = [[headline], [datetime], [str(link)], [pos_score], [neg_score], [agg], [stock_price]]
+            spamwriter.writerow([headline, datetime, str(link), pos_score, neg_score, agg, stock_price])
+
+            text_articles[headline] = body
+
     return text_articles
 
