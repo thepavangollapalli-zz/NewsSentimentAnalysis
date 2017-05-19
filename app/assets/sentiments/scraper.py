@@ -10,6 +10,7 @@ import requests
 
 def get_text(link):
     # inspired by hitchhiker's
+    # scrapes article's text
     page = requests.get(link)
     tree = html.fromstring(page.content)
     body = (tree.xpath('//*[@id="story"]/div[2]'))[0]
@@ -18,6 +19,9 @@ def get_text(link):
     return content
 
 def parse(filename):
+    # iterates through file, and loads in each url
+    # scrapes text and saves it to file
+    # returns dictionary with key=headline, value=body of article
     content = json.load(codecs.open(filename, 'r', 'utf-8-sig'))
     articles = content['response']['docs']
     text_articles = dict()
