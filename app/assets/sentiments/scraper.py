@@ -54,8 +54,8 @@ def parse(filename):
             stock_price = 10
 
             # headline,timestamp,url,pos,neg,agg,stock_price
-            row = [[headline], [datetime], [str(link)], [pos_score], [neg_score], [agg], [stock_price]]
-            spamwriter.writerow([headline, datetime, str(link), pos_score, neg_score, agg, stock_price])
+            row = [headline, datetime, str(link), pos_score, neg_score, agg, stock_price]
+            spamwriter.writerow(row)
 
             text_articles[headline] = body
 
