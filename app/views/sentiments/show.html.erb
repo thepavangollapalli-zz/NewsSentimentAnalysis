@@ -3,7 +3,11 @@
 		<div class="col s2" id="left-sidebar">
 			<!-- Left sidebar in wireframe -->
 			<h1><%= @sentiment.stock_symbol %></h1>
-			<h3><%= @main_score %>% <span style="font-size:17px">positive</span></h3>
+			<% if @main_score != -1 %>
+				<h3 style="color:#0e9110"><%= @main_score %>% <span style="font-size:17px">positive</span></h3>
+			<% else %>
+				<h3 style="color:#979899">0%</h3>
+			<% end %>
 			<h5><span style="font-size:17px">From </span><%= @nice_start_date %></h5> 
 			<h5><% if !@sentiment.end_date.empty? %>
 					<span style="font-size:17px">To </span><%= @nice_end_date %>
@@ -23,8 +27,8 @@
 						    <div class="card-content">
 						      <span class="card-title truncate" style="font-size:30px;"><%= link_to row[0], row[2] %> <!-- headline --></span>
 						      <%# row[2] %> <!-- url -->
-							  <h5><%= row[3] %>% <span class="small-card-text">positive</span></h5> <!-- pos -->
-							  <h5><%= row[4] %>% <span class="small-card-text">negative</span></h5><!-- neg -->
+							  <h5 style="color:#0e9110"><%= row[3] %>% <span class="small-card-text">positive</span></h5> <!-- pos -->
+							  <h5 style="color:#b21717"><%= row[4] %>% <span class="small-card-text">negative</span></h5><!-- neg -->
 						    </div>
 						<!-- <div class="card-action">
 						      <a href="#">This is a link</a>

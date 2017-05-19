@@ -4,8 +4,8 @@
   <div class="form-inputs">
     <div class="row">
       <div class="input-field col s12">
-  	     <%# s.input :stock_symbol, collection: Sentiment::COMPANIES %>
-  	     <%= s.select(:stock_symbol, Sentiment::COMPANIES, prompt: "Select a company") %>
+  	     <%= s.input :stock_symbol, input_html: {id: 'autocomplete-input', class:'autocomplete'} %>
+  	     <%# s.select(:stock_symbol, Sentiment::COMPANIES, prompt: "Select a company") %>
       </div>
     </div>
     <div class="row">
