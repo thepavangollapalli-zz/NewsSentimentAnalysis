@@ -16,7 +16,12 @@ def get_text(link):
     # scrapes article's text
     page = requests.get(link)
     tree = html.fromstring(page.content)
-    body = (tree.xpath('//*[@id="story"]/div[2]'))[0]
+
+    body = (tree.xpath('//*[@id="story"]/div[2]'))
+    if len(body)==0:
+        return ""
+    else:
+        body = body[0]
     data = etree.tostring(body, encoding='utf8', method="xml")
     content = clean_up.clean_html(str(data)) 
     return content
