@@ -38,7 +38,7 @@ def parse(filename):
     POSITIVE = []
     NEGATIVE = []
 
-    with open('sentiments.csv', 'wb', newline='') as csvfile:
+    with open('sentiments.csv', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
                                 quoting=csv.QUOTE_MINIMAL)
         spamwriter.writerow(['headline', 'timestamp', 'url', 'pos', 'neg', 'agg', 'stock_price'])
