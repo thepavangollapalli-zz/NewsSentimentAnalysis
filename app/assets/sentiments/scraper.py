@@ -48,7 +48,7 @@ def parse(filename):
     POSITIVE = []
     NEGATIVE = []
 
-    with open('sentiments.csv', 'w', newline='') as csvfile:
+    with open('app/assets/sentiments/sentiments.csv', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
                                 quoting=csv.QUOTE_MINIMAL)
         # write csv headers
@@ -63,6 +63,7 @@ def parse(filename):
             headline = article['headline']['main']
             body = get_text(link)
             
+            print(body)
             if len(body)==0:
                 return -1
             
@@ -79,6 +80,7 @@ def parse(filename):
 
             # writing rows into csv file
             row = [headline, datetime, str(link), pos_score, neg_score, agg, stock_price]
+            spamwriter.writerow(["hello"])
             spamwriter.writerow(row)
 
 

@@ -19,7 +19,7 @@ class Sentiment < ActiveRecord::Base
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = true
 			uri.query = URI.encode_www_form({
-			  "api-key" => "3187d3c65dc849aa965473461adcde3d",
+			  "api-key" => "dbf77466cbb3492eae42bfcacf826125",
 			  "q" => "#{self.stock_symbol}",
 			  "begin_date" => "#{begin_date}"
 			})
@@ -30,7 +30,7 @@ class Sentiment < ActiveRecord::Base
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = true
 			uri.query = URI.encode_www_form({
-			  "api-key" => "3187d3c65dc849aa965473461adcde3d",
+			  "api-key" => "dbf77466cbb3492eae42bfcacf826125",
 			  "q" => "#{self.stock_symbol}",
 			  "begin_date" => "#{begin_date}",
 			  "end_date" => "#{til_date}"

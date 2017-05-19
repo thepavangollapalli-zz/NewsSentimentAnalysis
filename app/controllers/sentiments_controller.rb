@@ -14,6 +14,7 @@ class SentimentsController < ApplicationController
 		@sentiment = Sentiment.new(sentiment_params)
 		if @sentiment.save
 			sym = @sentiment.stock_symbol[/\(.*?\)/][1..-2]
+			# byebug
 			@sentiment.agg_score =  %x(python app/assets/sentiments/main.py #{sym} #{@sentiment.json})
 			@sentiment.save
 			redirect_to sentiment_path(@sentiment)
@@ -30,16 +31,18 @@ class SentimentsController < ApplicationController
 		#parse output from file if exists
 		#open file, iterate through
 		
+
+
 		#parse csv file
-		@articles = CSV.read('app/assets/sentiments/sentiments.csv', {:headers => true, :encoding => 'ISO-8859-1'})
+		@articles = CSV.read('app/assets/inputs/sentiments.csv', {:headers => true, :encoding => 'ISO-8859-1'})
 		@timestamps = @articles['timestamp']
-		@timestamps.collect! { |ts|
-			ts.split('/')
-		}
+		# @timestamps.collect! { |ts|
+		# 	ts.split('/')
+		# }
 
 		#ALL FAKE STUFF
 		
-		@main_score = 88.0 #@sentiment.agg_score
+		@main_score = 88 #@sentiment.agg_score
 
 		#deletes csv file - uncomment later
 		# File.delete('app/assets/inputs/sentiments.csv') if File.exist?('app/assets/inputs/sentiments.csv')
