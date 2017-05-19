@@ -9,6 +9,7 @@ from lxml import etree
 import requests
 import csv
 from analyzer import Analyzer
+import random
 
 def get_text(link):
     # inspired by hitchhiker's
@@ -20,7 +21,8 @@ def get_text(link):
     content = clean_up.clean_html(str(data)) 
     return content
 
-# def get_stock_price(link):
+def get_stock_price(link):
+    return random.uniform(20, 1000)
 
 def parse(filename):
     # iterates through file, and loads in each url
@@ -33,9 +35,10 @@ def parse(filename):
     if len(articles)==0:
         return -1
 
-    text_articles = dict()
+    POSITIVE = []
+    NEGATIVE = []
 
-    with open('sentiments.csv', 'w', newline='') as csvfile:
+    with open('sentiments.csv', 'wb', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
                                 quoting=csv.QUOTE_MINIMAL)
         spamwriter.writerow(['headline', 'timestamp', 'url', 'pos', 'neg', 'agg', 'stock_price'])
@@ -48,6 +51,9 @@ def parse(filename):
             
             pos_score = a.analyze_p(body)
             neg_score = a.analyze_n(body)
+            
+            POSITIVE.append(pos_score)
+            NEGATIVE.append(neg_score)
 
             # dummy instantiation 
             agg = pos_score-neg_score
@@ -57,7 +63,7 @@ def parse(filename):
             row = [headline, datetime, str(link), pos_score, neg_score, agg, stock_price]
             spamwriter.writerow(row)
 
-            text_articles[headline] = body
 
-    return text_articles
+    agg = a.aggregate(POSITIVE, NEGATIVE)
+    return agg
 
