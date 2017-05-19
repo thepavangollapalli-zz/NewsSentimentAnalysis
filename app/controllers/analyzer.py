@@ -48,6 +48,20 @@ class Analyzer():
         #return percentage of positive words in inputted text
         return (sum_n * 1.0 / len(text)) * 100
 
+    #accepts two lists of the same length with positive and negative scores 
+    def aggregate(self, pos, neg): 
+        #compare average of the negative and positive percentages of all articles
+        neg_avg = sum(neg) / float(len(neg))
+        pos_avg = sum(pos) / float(len(pos))
+        if pos_avg == neg_avg:
+            return 0
+        elif pos_avg > neg_avg :
+            return pos_avg
+        else:
+            return (-1.0 * neg_avg)
+
+
+
         
 
 
