@@ -1,6 +1,3 @@
-
-
-
 <%= simple_form_for(@sentiment) do |s| %>
   <%= s.error_notification %>
 
@@ -8,20 +5,24 @@
     <div class="row">
       <div class="input-field col s12">
   	     <%# s.input :stock_symbol, collection: Sentiment::COMPANIES %>
-  	     <%= s.select(:stock_symbol, Sentiment::COMPANIES, prompt: "Select a category") %>
+  	     <%= s.select(:stock_symbol, Sentiment::COMPANIES, prompt: "Select a company") %>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s6">
-  	    <%= s.input :start_date, as: :string %>
+  	    <%= s.input :start_date, as: :string, placeholder: "DD/MM/YY" %>
       </div>
       <div class="input-field col s6">
-  	    <%= s.input :end_date, as: :string %>
+  	    <%= s.input :end_date, as: :string, placeholder: "DD/MM/YY" %>
       </div>
     </div>
   </div>
 
   <div class="form-actions">
-    <%= s.button :submit, :class => "btn waves-effect waves-light" %>
+    <div class="row">
+      <div class="col s4 offset-s4">
+        <%= s.button :submit, :class => "btn waves-effect waves-light" %>
+      </div>
+    </div>
   </div>
 <% end %>

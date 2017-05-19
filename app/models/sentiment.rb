@@ -12,8 +12,8 @@ class Sentiment < ActiveRecord::Base
     def api_call
     	# Modified from http://developer.nytimes.com/ and LucyBot
     	#reformat start date
-    	begin_date = Date.strptime(self.start_date, "%m/%d/%y").strftime("%Y%m%d")
-
+    	begin_date = Date.strptime(self.start_date, "%d/%m/%y").strftime("%Y%m%d")
+    	til_date = ""
     	if self.end_date.empty?
     		uri = URI("https://api.nytimes.com/svc/search/v2/articlesearch.json")
 			http = Net::HTTP.new(uri.host, uri.port)
@@ -24,7 +24,8 @@ class Sentiment < ActiveRecord::Base
 			  "begin_date" => "#{begin_date}"
 			})
     	else
-    		til_date = Date.strptime(self.end_date, "%m/%d/%y").strftime("%Y%m%d")
+    		#Specify end date only if it exists
+    		til_date = Date.strptime(self.end_date, "%d/%m/%y").strftime("%Y%m%d")
     		uri = URI("https://api.nytimes.com/svc/search/v2/articlesearch.json")
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = true
@@ -36,12 +37,14 @@ class Sentiment < ActiveRecord::Base
 			})
     	end
 		request = Net::HTTP::Get.new(uri.request_uri)
-		@result = JSON.parse(http.request(request).body)
+		@result = http.request(request).body #JSON.parse
 
 		File.open("app/assets/inputs/input.json", "w+") do |f| #  #{self.stock_symbol}
+		  # f.write(begin_date)
+		  # f.write(til_date)
 		  f.write(@result)
 		end
-		
+
 		self.json = "app/assets/inputs/input.json"
     end
 end
