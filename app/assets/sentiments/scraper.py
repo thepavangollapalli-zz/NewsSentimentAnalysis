@@ -9,6 +9,7 @@ from lxml import etree
 import requests
 import csv
 from analyzer import Analyzer
+from sent_analyze import BayesClassify
 import random
 
 def get_text(link):
@@ -45,8 +46,9 @@ def parse(filename):
         return -1
 
 
-    POSITIVE = []
-    NEGATIVE = []
+    # POSITIVE = []
+    # NEGATIVE = []
+    scores = list()
 
     with open('app/assets/sentiments/sentiments.csv', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
@@ -68,11 +70,10 @@ def parse(filename):
                 return -1
             
             # getting positive and negative sentiment scores
-            pos_score = a.analyze_p(body)
-            neg_score = a.analyze_n(body)
             
-            POSITIVE.append(pos_score)
-            NEGATIVE.append(neg_score)
+            scores.append(a.analyzer(body))
+            # POSITIVE.append(pos_score)
+            # NEGATIVE.append(neg_score)
 
             # dummy instantiation 
             agg = pos_score-neg_score
