@@ -35,6 +35,8 @@ def parse(filename):
     # returns dictionary with key=headline, value=body of article
     a = Analyzer()
     content = json.load(codecs.open(filename, 'r', 'utf-8-sig'))
+    if len(content)==0:
+        return -1
     articles = content['response']['docs']
     
     if len(articles)==0:
