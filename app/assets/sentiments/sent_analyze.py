@@ -37,7 +37,17 @@ class BayesClassify(object):
         self.sid = SentimentIntensityAnalyzer()
 
         def analyzer(self, article):
+            # returns score for text of article (type str)
             return self.sid.polarity_scores(article)
+
+        def aggregate(self, scores):
+            # simple summation 
+            POS, NEU, NEG = 0,0,0
+            for (pos, neu, neg) in scores:
+                POS += pos
+                NEU += neu
+                NEG += neg
+            return (POS/float(len(scores)), NEU/float(len(scores)), NEG/float(len(scores)))
 
 
 
