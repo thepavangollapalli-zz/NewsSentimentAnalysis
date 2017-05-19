@@ -32,7 +32,7 @@ def get_stock_price(link):
 def parse(filename):
     # iterates through file, and loads in each url
     # scrapes text and saves it to file
-    # returns dictionary with key=headline, value=body of article
+    # returns aggregate score across all articles
     a = Analyzer()
     content = json.load(codecs.open(filename, 'r', 'utf-8-sig'))
     if len(content)==0:
@@ -42,15 +42,20 @@ def parse(filename):
     if len(articles)==0:
         return -1
 
+
     POSITIVE = []
     NEGATIVE = []
 
     with open('sentiments.csv', 'w', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
                                 quoting=csv.QUOTE_MINIMAL)
+        # write csv headers
         spamwriter.writerow(['headline', 'timestamp', 'url', 'pos', 'neg', 'agg', 'stock_price'])
 
-        for article in articles:
+        for i in range(max(10, len(articles))):
+        # for article in articles:
+            # pull data for each article
+            article = articles[i]
             datetime = str(article['pub_date'])
             link = article['web_url']
             headline = article['headline']['main']
@@ -59,6 +64,7 @@ def parse(filename):
             if len(body)==0:
                 return -1
             
+            # getting positive and negative sentiment scores
             pos_score = a.analyze_p(body)
             neg_score = a.analyze_n(body)
             
@@ -69,7 +75,7 @@ def parse(filename):
             agg = pos_score-neg_score
             stock_price = get_stock_price(link)
 
-            # headline,timestamp,url,pos,neg,agg,stock_price
+            # writing rows into csv file
             row = [headline, datetime, str(link), pos_score, neg_score, agg, stock_price]
             spamwriter.writerow(row)
 
