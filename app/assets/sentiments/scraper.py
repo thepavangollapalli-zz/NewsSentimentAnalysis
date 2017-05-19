@@ -57,7 +57,7 @@ def parse(filename):
 
             # dummy instantiation 
             agg = pos_score-neg_score
-            stock_price = 10
+            stock_price = get_stock_price(link)
 
             # headline,timestamp,url,pos,neg,agg,stock_price
             row = [headline, datetime, str(link), pos_score, neg_score, agg, stock_price]
