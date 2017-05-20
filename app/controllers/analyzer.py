@@ -1,7 +1,7 @@
 #!/usr/bin/python
 import re
 
-#define a class that implements sentiment analysis using 
+#define a class that implements sentiment analysis using frequencies
 
 class Analyzer(): 
     #initialize the Analyzer 

@@ -45,7 +45,11 @@ def parse(filename):
     # loads in json in correct encoding from filename
     content = json.load(codecs.open(filename, 'r', 'utf-8-sig'))
     
-    if(len(content)==0): # if file is empty
+    # if(len(content)==0): # if file is empty
+        # return -1
+
+    # check if articles present
+    if not content || not content['response'] || not content['response']['docs']:
         return -1
 
     # get list of articles
