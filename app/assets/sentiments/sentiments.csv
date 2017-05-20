@@ -1,5 +1,1 @@
-headline,timestamp,url,pos,neg,agg,stock_price
-Credit Suisse Sues Over Private Equity Loans,2009-03-26T11:42:01Z,https://dealbook.nytimes.com/2009/03/26/credit-suisse-sues-over-private-equity-loans/,17.045007849906092,36.42316904572354,-19.378161195817448,961.2957133752794
-"Swiss Lawmakers Say UBS, Credit Suisse Need More Capital",2008-07-07T07:02:35Z,https://dealbook.nytimes.com/2008/07/07/swiss-lawmakers-say-ubs-credit-suisse-need-more-capital/,41.433664602117034,40.44236823233208,0.9912963697849548,364.39038877741274
-Credit Suisse Shutters Bond Fund After Investor Flight,2008-11-10T05:36:55Z,https://dealbook.nytimes.com/2008/11/10/credit-suisse-shutters-bond-fund-after-investor-flight/,13.840416895148582,49.083062721856166,-35.24264582670759,916.3077746884873
-Credit Suisse Said to Close Some U.S. Offshore Accounts,2009-04-13T06:01:22Z,https://dealbook.nytimes.com/2009/04/13/credit-suisse-said-to-close-some-us-offshore-accounts/,22.131767577484652,31.579199784739114,-9.447432207254462,61.97977784642589
+headline,timestamp,url,pos,neutral,neg,stock_price

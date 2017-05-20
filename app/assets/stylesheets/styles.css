@@ -50,7 +50,7 @@
 }
 
 #article-list{
-	height:80vh;
+	height:85vh;
 	border-left:1px solid black;
 	border-right:1px solid black;
 	margin-left:5%;
@@ -61,10 +61,15 @@
 }
 
 #scrollable-articles{
-	height:70vh;
+	height:75vh;
 	overflow:scroll;
 }
 
 #right-sidebar{
+	height:85vh;
+}
 
+#scrollable-graphs{
+	height:75vh;
+	overflow: scroll;
 }

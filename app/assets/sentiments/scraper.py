@@ -45,26 +45,26 @@ def parse(filename):
     # loads in json in correct encoding from filename
     content = json.load(codecs.open(filename, 'r', 'utf-8-sig'))
     
-    if len(content)==0: # if file is empty
+    if(len(content)==0): # if file is empty
         return -1
 
     # get list of articles
     articles = content['response']['docs']
     
-    if len(articles)==0: # if no articles
+    if(len(articles)==0): # if no articles
         return -1
 
 
-    # POSITIVE = []
-    # NEGATIVE = []
+    POSITIVE = []
+    NEGATIVE = []
     SCORES = list()
 
-    with open('app/assets/sentiments/sentiments.csv', 'w', newline='') as csvfile:
+    with open('app/assets/sentiments/sentiments.csv', 'w+', newline='') as csvfile:
         spamwriter = csv.writer(csvfile, delimiter=',',
                                 quoting=csv.QUOTE_MINIMAL)
         # write csv headers
         spamwriter.writerow(['headline', 'timestamp', 'url', 'pos', 'neutral', 'neg', 'stock_price'])
-        print(min(10, len(articles)))
+        # spamwriter.writerow([min(10, len(articles))])
         for i in range(min(10, len(articles))):
             # pull data for each article
             article = articles[i]
@@ -73,25 +73,44 @@ def parse(filename):
             headline = article['headline']['main']
             body = get_text(link)
             
-            if len(body)==0: # error checking
+            if(len(body)==0): # error checking
                 return -1
             
+            comp = 0
+            pos = 0
+            neg = 0
+            neu = 0
             # getting positive, neutral and negative sentiment scores
-            (pos, neu, neg) = a.analyzer(body)
-            SCORES.append((pos, neu, neg))
+            ss = a.analyzer(body)
+            for k in sorted(ss):
+                if(k == 'compound'):
+                    SCORES.append(ss[k])
+                    comp = ss[k] * 100
+                elif(k == "neg"):
+                    NEGATIVE.append(ss[k])
+                    neg = ss[k] * 100
+                elif(k == "neu"):
+                    neu = ss[k] * 100
+                else:
+                    pos = ss[k] * 100
+                    POSITIVE.append(ss[k])
+                # print('{0}: {1}, '.format(k, ss[k]), end='')
+
+            # SCORES.append((pos, neu, neg))
             # POSITIVE.append(pos_score)
             # NEGATIVE.append(neg_score)
 
             # dummy instantiation 
-            agg = pos-neg
+            # agg = pos-neg
             stock_price = get_stock_price(link)
 
             # writing rows into csv file
             row = [headline, datetime, str(link), pos, neu, neg, stock_price]
+            # spamwriter.writerow([min(10, len(articles))])
             spamwriter.writerow(row)
 
 
     agg = a.aggregate(SCORES)
-    # returns aggregated tuple of (POSITIVE, NEUTRAL, NEGATIVE) scores
+    # returns aggregated list of (POSITIVE, NEUTRAL, NEGATIVE) scores
     return agg
 

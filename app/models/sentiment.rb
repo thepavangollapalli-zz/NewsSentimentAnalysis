@@ -19,7 +19,7 @@ class Sentiment < ActiveRecord::Base
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = true
 			uri.query = URI.encode_www_form({
-			  "api-key" => "dbf77466cbb3492eae42bfcacf826125",
+			  "api-key" => "dbf77466cbb3492eae42bfcacf826125", #andrew email API key
 			  "q" => "#{self.stock_symbol}",
 			  "begin_date" => "#{begin_date}"
 			})
@@ -30,7 +30,7 @@ class Sentiment < ActiveRecord::Base
 			http = Net::HTTP.new(uri.host, uri.port)
 			http.use_ssl = true
 			uri.query = URI.encode_www_form({
-			  "api-key" => "dbf77466cbb3492eae42bfcacf826125",
+			  "api-key" => "7d118ea98a6c4610ada9499af77ed970", # personal email API key
 			  "q" => "#{self.stock_symbol}",
 			  "begin_date" => "#{begin_date}",
 			  "end_date" => "#{til_date}"
@@ -40,8 +40,6 @@ class Sentiment < ActiveRecord::Base
 		@result = http.request(request).body #JSON.parse
 
 		File.open("app/assets/inputs/input.json", "w+") do |f| #  #{self.stock_symbol}
-		  # f.write(begin_date)
-		  # f.write(til_date)
 		  f.write(@result)
 		end
 

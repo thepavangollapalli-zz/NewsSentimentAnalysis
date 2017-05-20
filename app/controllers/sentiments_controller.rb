@@ -12,11 +12,12 @@ class SentimentsController < ApplicationController
 
 	def create
 		@sentiment = Sentiment.new(sentiment_params)
+		byebug
 		if @sentiment.save
-			sym = @sentiment.stock_symbol[/\(.*?\)/][1..-2]
 			# byebug
+			sym = @sentiment.stock_symbol[/\(.*?\)/][1..-2]
 			@sentiment.agg_score =  %x(python app/assets/sentiments/main.py #{sym} #{@sentiment.json})
-			@sentiment.save
+			# @sentiment.save
 			redirect_to sentiment_path(@sentiment)
 		else
 			render action: 'new'
@@ -24,6 +25,9 @@ class SentimentsController < ApplicationController
 	end
 
 	def show
+		# sym = @sentiment.stock_symbol[/\(.*?\)/][1..-2]
+		# @sentiment.agg_score =  %x(python app/assets/sentiments/main.py #{sym} #{@sentiment.json})
+		# byebug
 		@nice_start_date = Date.strptime(@sentiment.start_date, "%d/%m/%y").strftime("%A, %e %B %Y")
 		if !@sentiment.end_date.empty?
 			@nice_end_date = Date.strptime(@sentiment.end_date, "%d/%m/%y").strftime("%A, %e %B %Y")
@@ -34,15 +38,15 @@ class SentimentsController < ApplicationController
 
 
 		#parse csv file
-		@articles = CSV.read('app/assets/inputs/sentiments.csv', {:headers => true, :encoding => 'ISO-8859-1'})
+		@articles = CSV.read('app/assets/sentiments/sentiments.csv', {:headers => true, :encoding => 'ISO-8859-1'})
 		@timestamps = @articles['timestamp']
-		# @timestamps.collect! { |ts|
-		# 	ts.split('/')
-		# }
+		@timestamps.collect! { |ts|
+			Date.parse(ts)
+		}
 
 		#ALL FAKE STUFF
 		
-		@main_score = 88 #@sentiment.agg_score
+		@main_score = @sentiment.agg_score
 
 		#deletes csv file - uncomment later
 		# File.delete('app/assets/inputs/sentiments.csv') if File.exist?('app/assets/inputs/sentiments.csv')
