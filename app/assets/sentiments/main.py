@@ -9,4 +9,5 @@ def main():
     args = parser.parse_args()
     return parse(args.filename)
 
-if __name__ == "__main__": main()
+# if __name__ == "__main__": main()
+print(main())

@@ -12,12 +12,13 @@ class SentimentsController < ApplicationController
 
 	def create
 		@sentiment = Sentiment.new(sentiment_params)
-		byebug
 		if @sentiment.save
 			# byebug
+			@sentiment.api_call
 			sym = @sentiment.stock_symbol[/\(.*?\)/][1..-2]
-			@sentiment.agg_score =  %x(python app/assets/sentiments/main.py #{sym} #{@sentiment.json})
-			# @sentiment.save
+			@sentiment.agg_score = `python app/assets/sentiments/main.py #{sym} #{@sentiment.json}` #%x
+			# THEORY: returns 0 on success, null on failure
+			@sentiment.save!
 			redirect_to sentiment_path(@sentiment)
 		else
 			render action: 'new'

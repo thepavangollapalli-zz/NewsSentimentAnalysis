@@ -4,16 +4,16 @@
   <div class="form-inputs">
     <div class="row">
       <div class="input-field col s12">
-  	     <%= s.input :stock_symbol, input_html: {id: 'autocomplete-input', class:'autocomplete'} %>
+  	     <%= s.input :stock_symbol, input_html: {id: 'autocomplete-input', autocomplete: 'off', class:'autocomplete'} %>
   	     <%# s.select(:stock_symbol, Sentiment::COMPANIES, prompt: "Select a company") %>
       </div>
     </div>
     <div class="row">
       <div class="input-field col s6">
-  	    <%= s.input :start_date, as: :string, placeholder: "DD/MM/YY" %>
+  	    <%= s.input :start_date, as: :string, placeholder: "DD/MM/YY", input_html: {class:'active'} %>
       </div>
       <div class="input-field col s6">
-  	    <%= s.input :end_date, as: :string, placeholder: "DD/MM/YY" %>
+  	    <%= s.input :end_date, as: :string, placeholder: "DD/MM/YY", input_html: {class:'active'} %>
       </div>
     </div>
   </div>

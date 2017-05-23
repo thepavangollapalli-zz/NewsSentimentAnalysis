@@ -1,5 +1,5 @@
 class Sentiment < ActiveRecord::Base
-	before_save :api_call
+	# before_save :api_call
 
 	#list of companies
 	#COMPANIES = [['Google (GOOG)', 'Google'], ['Credit Suisse (CS)', 'Credit Suisse'], ['Facebook (FB)', 'Facebook'], ['Yahoo (YHOO)', 'Yahoo'], ['Tableau (DATA)', 'Tableau Software'], ['Microsoft (MS)', 'Microsoft'], ['Thomson Reuters Inc. (TRI)', 'Thomson Reuters'], ['Goldman Sachs(GS)', 'Goldman Sachs'], ['Amazon (AMZN)','Amazon'], ['Cloudera (CLDR)','Cloudera']]

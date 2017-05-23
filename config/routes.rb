@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   #     resources :products
   #   end
 
+  root "sentiments#index"
   resources :sentiments
   # get 'sentiments' => 'sentiments#new', as: :create_sentiment
 end

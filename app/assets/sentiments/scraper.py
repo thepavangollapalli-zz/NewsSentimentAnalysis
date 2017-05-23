@@ -49,7 +49,10 @@ def parse(filename):
         # return -1
 
     # check if articles present
-    if not content || not content['response'] || not content['response']['docs']:
+    if(not content or not content['response'] or not content['response']['docs']):
+        return -1
+
+    if(content['response']['meta']['hits'] == 0):
         return -1
 
     # get list of articles
@@ -67,7 +70,8 @@ def parse(filename):
         spamwriter = csv.writer(csvfile, delimiter=',',
                                 quoting=csv.QUOTE_MINIMAL)
         # write csv headers
-        spamwriter.writerow(['headline', 'timestamp', 'url', 'pos', 'neutral', 'neg', 'stock_price'])
+        # spamwriter.writerow([content['response']['meta']['hits']])
+        spamwriter.writerow(['headline', 'timestamp', 'url', 'comp', 'pos', 'neutral', 'neg', 'stock_price'])
         # spamwriter.writerow([min(10, len(articles))])
         for i in range(min(10, len(articles))):
             # pull data for each article
@@ -109,12 +113,14 @@ def parse(filename):
             stock_price = get_stock_price(link)
 
             # writing rows into csv file
-            row = [headline, datetime, str(link), pos, neu, neg, stock_price]
+            row = [headline, datetime, str(link), comp, pos, neu, neg, stock_price]
             # spamwriter.writerow([min(10, len(articles))])
             spamwriter.writerow(row)
+            # csvfile.flush()
 
 
     agg = a.aggregate(SCORES)
     # returns aggregated list of (POSITIVE, NEUTRAL, NEGATIVE) scores
-    return agg
+    content.close()
+    return sum(SCORES) / float(len(SCORES))
 

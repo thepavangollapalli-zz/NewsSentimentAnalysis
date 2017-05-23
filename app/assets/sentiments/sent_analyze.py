@@ -42,14 +42,10 @@ class BayesClassify(object):
 
     def aggregate(self, scores):
         # simple summation 
-        POS, NEU, NEG = 0,0,0
+        total = 0
         for score in scores:
-            (pos, neu, neg) = score
-            POS += pos
-            NEU += neu
-            NEG += neg
-        print(POS, NEU, NEG)
-        return [POS/float(len(scores)), NEU/float(len(scores)), NEG/float(len(scores))]
+            total += score
+        return total/float(len(scores))
 
 
 
