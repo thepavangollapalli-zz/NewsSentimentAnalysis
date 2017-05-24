@@ -63,6 +63,7 @@
 #scrollable-articles{
 	height:75vh;
 	overflow:scroll;
+	overflow-x: hidden;
 }
 
 #right-sidebar{
@@ -72,4 +73,5 @@
 #scrollable-graphs{
 	height:75vh;
 	overflow: scroll;
+	overflow-x: hidden;
 }
