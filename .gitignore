@@ -15,3 +15,10 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore default file in all mac folders
+.DS_Store
+
+# Ignore files that are changed each time the app runs
+/app/assets/inputs/input.json
+/app/assets/sentiments/sentiments.csv
