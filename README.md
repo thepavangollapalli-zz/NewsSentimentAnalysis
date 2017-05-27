@@ -3,6 +3,8 @@
 Suisse Sentiments is a Rails application that takes user input of a company and a time range and returns the overall
 sentiment of that company in the New York Times' articles in that time range using Python to scrape the links and NLTK's naive bayes classifier to conduct the sentiment analysis on the article's body.
 
+This was made at Code Suisse 2017, where it won second place.
+
 After running git clone, navigate to the directory:
 
 `cd ../NewsSentimentAnalysis/`
