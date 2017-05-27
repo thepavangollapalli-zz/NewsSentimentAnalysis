@@ -5,7 +5,7 @@ sentiment of that company in the New York Times' articles in that time range usi
 
 After running git clone, navigate to the directory:
 
-`cd ../Sentiments/`
+`cd ../NewsSentimentAnalysis/`
 
 Then run `rake db:migrate` and `rails server` to run the application.
 
