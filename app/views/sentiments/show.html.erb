@@ -1,8 +1,8 @@
 <div class="container display">	
 	<div class="row">
-		<div class="col s2" id="left-sidebar">
+		<div class="col l2 m4 s12" id="left-sidebar">
 			<!-- Left sidebar in wireframe -->
-			<h2><%= @sentiment.stock_symbol %></h2>
+			<h3><%= @sentiment.stock_symbol %></h3>
 			<% if @main_score != -1 %>
 				<h3 style="color:#0e9110"><%= @main_score %>% <span style="font-size:17px">positive</span></h3>
 			<% else %>
@@ -15,7 +15,7 @@
 			</h5>
 		</div>
 
-		<div class="col s4" id="article-list">
+		<div class="col l4 m7 hide-on-small-and-down" id="article-list">
 		<!-- Main content section of page -->
 			<h4>Highlighted Articles</h4>
 			<!-- list of article cards -->
@@ -37,7 +37,7 @@
 				<% end %>
 			</div>
 		</div>
-		<div class="col s5" id="right-sidebar">
+		<div class="col l5 hide-on-med-and-down" id="right-sidebar">
 			<!-- Right sidebar with highcharts.js -->
 			<!-- This is where @timestamps comes in!! -->
 			<h4>Analysis</h4>

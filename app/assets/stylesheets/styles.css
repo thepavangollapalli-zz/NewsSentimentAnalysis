@@ -1,11 +1,30 @@
+body{
+	/*background-color:#CFDFF8;*/
+}
 .small-card-text{
 	font-size:17px;
 }
 
 .display{
 	width:90%;
-	margin-top:5%;
+	margin-top:7%;
 	flex: 1;
+}
+
+@media only screen and (max-width: 992px) {
+	.display{
+	width:90%;
+	margin-top:9%;
+	flex: 1;
+	}
+}
+
+@media only screen and (max-width: 600px) {
+	.display{
+	width:90%;
+	margin-top:11%;
+	flex: 1;
+	}
 }
 
 .nav {
@@ -47,6 +66,7 @@
 
 #left-sidebar{
 	min-height:500px;
+/*	color:#636148;*/
 }
 
 #article-list{
