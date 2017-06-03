@@ -26,7 +26,7 @@ class Analyzer():
                 sum_p += 1
 
         #return percentage of positive words in inputted text
-        return random.uniform(0, 50) #(sum_p * 1.0 / len(text)) * 100
+        return random.uniform(0, 50)
 
     #analyze text for negative sentiment returning ts score 
     def analyze_n(self, text):
@@ -58,12 +58,4 @@ class Analyzer():
             return pos_avg
         else:
             return (-1.0 * neg_avg)
-
-
-
-        
-
-
-
-
 

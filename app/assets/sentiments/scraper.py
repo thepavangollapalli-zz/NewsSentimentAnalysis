@@ -45,9 +45,6 @@ def parse(filename):
     # loads in json in correct encoding from filename
     content = json.load(codecs.open(filename, 'r', 'utf-8-sig'))
     
-    # if(len(content)==0): # if file is empty
-        # return -1
-
     # check if articles present
     if(not content or not content['response'] or not content['response']['docs']):
         return -1
@@ -61,7 +58,6 @@ def parse(filename):
     if(len(articles)==0): # if no articles
         return -1
 
-
     POSITIVE = []
     NEGATIVE = []
     SCORES = list()
@@ -70,9 +66,8 @@ def parse(filename):
         spamwriter = csv.writer(csvfile, delimiter=',',
                                 quoting=csv.QUOTE_MINIMAL)
         # write csv headers
-        # spamwriter.writerow([content['response']['meta']['hits']])
         spamwriter.writerow(['headline', 'timestamp', 'url', 'comp', 'pos', 'neutral', 'neg', 'stock_price'])
-        # spamwriter.writerow([min(10, len(articles))])
+        
         for i in range(min(10, len(articles))):
             # pull data for each article
             article = articles[i]
@@ -88,6 +83,7 @@ def parse(filename):
             pos = 0
             neg = 0
             neu = 0
+
             # getting positive, neutral and negative sentiment scores
             ss = a.analyzer(body)
             for k in sorted(ss):
@@ -102,11 +98,7 @@ def parse(filename):
                 else:
                     pos = ss[k] * 100
                     POSITIVE.append(ss[k])
-                # print('{0}: {1}, '.format(k, ss[k]), end='')
-
-            # SCORES.append((pos, neu, neg))
-            # POSITIVE.append(pos_score)
-            # NEGATIVE.append(neg_score)
+        
 
             # dummy instantiation 
             # agg = pos-neg
@@ -114,13 +106,11 @@ def parse(filename):
 
             # writing rows into csv file
             row = [headline, datetime, str(link), comp, pos, neu, neg, stock_price]
-            # spamwriter.writerow([min(10, len(articles))])
             spamwriter.writerow(row)
-            # csvfile.flush()
 
-
-    agg = a.aggregate(SCORES)
     # returns aggregated list of (POSITIVE, NEUTRAL, NEGATIVE) scores
+    agg = a.aggregate(SCORES)
+   
     content.close()
-    return sum(SCORES) / float(len(SCORES))
+    return (float(sum(SCORES)) / float(len(SCORES)))
 
